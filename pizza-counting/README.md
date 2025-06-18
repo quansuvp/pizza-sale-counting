@@ -36,6 +36,6 @@ Model training process followed tutorial of Ultralytics.
 - Change the range of video going to be processed by adjusting ```START_FRAME``` and ```END_FRAME``` in the ```main.py``` file.
 - Change the video file name in the command above to match your video filename if needed.
 
-- Output video is a sequence of annotated frame of the input video: where ```out``` is the number of pizzas sold.
+- Output video is a sequence of annotated frames of the input video: where ```out``` is the number of pizzas sold.
 
 ![alt text](images/image.png)
