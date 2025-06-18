@@ -1,19 +1,16 @@
+from onnxruntime import InferenceSession
 import os
 import cv2
 import supervision as sv
 import numpy as np
-from ultralytics import YOLO
 from tqdm import tqdm
 
-# Load YOLO model
-model = YOLO("/app/best1.pt")
+model = InferenceSession("/app/best1.onnx",providers=["CPUExecutionProvider"])
+input_name = model.get_inputs()[0].name
 
-# Input/output video paths from environment variables
-SOURCE_VIDEO_PATH = os.getenv("INPUT_VIDEO", "./videos/input107.mp4")
-TARGET_VIDEO_PATH = os.getenv("OUTPUT_VIDEO", "./videos/output107.avi")
+SOURCE_VIDEO_PATH = os.getenv("INPUT_VIDEO", "/videos/1462_CH03_20250607192844_202844.mp4")
+TARGET_VIDEO_PATH = os.getenv("OUTPUT_VIDEO", "/videos/output107.avi")
 
-
-# Video resolution and info
 W, H = 1280, 720
 video_info = sv.VideoInfo(
     width=W,
@@ -22,9 +19,9 @@ video_info = sv.VideoInfo(
     total_frames=sv.VideoInfo.from_video_path(SOURCE_VIDEO_PATH).total_frames
 )
 
-# Frame range for processing
 START_FRAME = 32000
-END_FRAME = 32100
+END_FRAME = 32010
+
 
 # Initialize annotators and tracker
 box_annotator = sv.BoxAnnotator(thickness=2)
@@ -50,29 +47,38 @@ LINE_END_ = sv.Point(int(350 * W / 640), int(115 * H / 640))
 
 line_zone_ = sv.LineZone(start=LINE_START_, end=LINE_END_)
 
-triggered_ids_line_zone = set()
 triggered_ids_line_zone_ = set()
 
-# Video frame generator
+
 generator = sv.get_video_frames_generator(SOURCE_VIDEO_PATH, start=START_FRAME, end=END_FRAME, stride=1)
 
 # Process and save video
 with sv.VideoSink(target_path=TARGET_VIDEO_PATH, video_info=video_info) as sink:
     for frame in tqdm(generator, total=END_FRAME - START_FRAME + 1):
-        resized_frame = cv2.resize(frame, (640, 640)).astype("uint8")
-        prediction = model(resized_frame, conf=0.2, iou=0.5, verbose=True)[0]
-
-        # Scale detections back to original frame size
-        xyxy = prediction.boxes.xyxy.cpu().numpy()
+        resized_frame = cv2.resize(frame, (640, 640))
+        resized_frame = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)
+        resized_frame = resized_frame.transpose(2, 0, 1)
+        resized_frame = resized_frame.reshape(1, 3, 640, 640).astype(np.float32)/255.0
+        
+        prediction = model.run(
+            None,
+           {"images": resized_frame}
+        )[0]
+        prediction = prediction[0]
+        prediction = prediction[prediction[...,4]>=0.25]
+        # print(prediction[prediction[...,4]!=0])
+        # print(prediction)
+        
+        xyxy = prediction[...,0:4]
         xyxy[..., 0] *= W / 640
         xyxy[..., 1] *= H / 640
         xyxy[..., 2] *= W / 640
         xyxy[..., 3] *= H / 640
-
+        
         detections = sv.Detections(
             xyxy=xyxy,
-            confidence=prediction.boxes.conf.cpu().numpy(),
-            class_id=prediction.boxes.cls.cpu().numpy().astype(int)
+            confidence=prediction[...,4],
+            class_id=prediction[...,5].astype(int)
         )
 
         tracked_detections = byte_tracker.update_with_detections(detections)
@@ -98,5 +104,4 @@ with sv.VideoSink(target_path=TARGET_VIDEO_PATH, video_info=video_info) as sink:
         # annotated_frame = line_zone_annotator.annotate(annotated_frame, line_counter=line_zone)
 
         sink.write_frame(annotated_frame)
-
-
+        # break
