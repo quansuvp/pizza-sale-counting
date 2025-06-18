@@ -25,8 +25,8 @@ Model training process followed tutorial of Ultralytics.
 ## 3. File requirement
 
 - best.pt is larger than 100MB, therefore, i could not push it to github, please download manually: https://drive.google.com/file/d/132BtGroW1dugbQdbr6Kd3MsrjLBop3YT/view?usp=sharing
-- the video being processed is ```SOHO_1462_CH03``` will also need to be downloaded manually: https://drive.google.com/file/d/11LSPgLVhZftVhe3ft1kRIawGMdTPReiK/view?usp=sharing
-- after finishing, move the ```best.pt``` to folder ```pizza-counting/app/``` and move the video to ```pizza-counting/videos/```
+- The video being processed is ```SOHO_1462_CH03``` will also need to be downloaded manually: https://drive.google.com/file/d/11LSPgLVhZftVhe3ft1kRIawGMdTPReiK/view?usp=sharing
+- After finishing, move the ```best.pt``` to folder ```pizza-counting/app/``` and move the video to ```pizza-counting/videos/```
 
 ## 4. Usage
 - Run docker with command
