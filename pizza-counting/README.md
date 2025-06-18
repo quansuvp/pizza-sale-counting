@@ -30,6 +30,7 @@ Model training process followed tutorial of Ultralytics.
 
 ## 4. Usage
 - Run docker with command
+   ```docker run --rm -v "$(Get-Location)/wheels:/wheels" python:3.10 bash -c "pip download opencv-python==4.11.0.86 -d /wheels"```
 
     ```docker run --rm -v ${PWD}/videos:/app/videos -v ${PWD}/app/main.py:/app/main.py -e INPUT_VIDEO=/app/videos/1462_CH03_20250607192844_202844.mp4 -e OUTPUT_VIDEO=/app/videos/output107.avi pizza-counting```
 
