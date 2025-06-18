@@ -6,11 +6,11 @@ Model training process followed tutorial of Ultralytics.
 
 ## 1. Brief
 
-- About the deployment
+- About the deployment:
     - Sorry for this incovenient set up, i will try to find another way for deployment.
     - The dockerfile is currently set up for CPU inference only, as i have personal computer with AMD GPU not NVDIA one -> cannot verify whether it run successfully.
     - To save your time i uploaded the demo on the youtube link: 
-- About the system
+- About the system performance:
     - YOLO11x is good at detecting "pizza" in the frame but the performance is affected by motion blur.
     - During processing the system may miss counting because the pizza was covered by the staff while passing triggering line.
 
