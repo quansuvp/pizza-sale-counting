@@ -7,7 +7,7 @@ Model training process followed tutorial of Ultralytics.
 ## 1. Brief
 
 - About the deployment:
-    - Sorry for this incovenient set up, i will try to find another way for deployment.
+    - Sorry for this uncovenient set up, i will try to find another way for deployment.
     - The dockerfile is currently set up for CPU inference only, as i have personal computer with AMD GPU not NVDIA one -> cannot verify whether it run successfully.
     - To save your time i uploaded the demo on the youtube link: 
 - About the system performance:
