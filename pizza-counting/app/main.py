@@ -20,7 +20,7 @@ video_info = sv.VideoInfo(
 )
 
 START_FRAME = 32000
-END_FRAME = 32010
+END_FRAME = 35000
 
 
 # Initialize annotators and tracker
