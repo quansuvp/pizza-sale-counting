@@ -4,6 +4,9 @@
 This project utilized YOLO11x to detect and count the number of pizzas sold in a period of time.
 Model training process followed tutorial of Ultralytics. 
 
+## UPDATED:
+    Change to onnx inference method which do not require Ultralytics for inference therefore reduce docker image size from >=10 GB to >=2 GB.
+
 ## 1. Brief
 
 - About the deployment:
@@ -17,7 +20,7 @@ Model training process followed tutorial of Ultralytics.
 
 ## 2. File requirement
 
-- best.pt is larger than 100MB, therefore, i could not push it to github, please download manually: https://drive.google.com/file/d/132BtGroW1dugbQdbr6Kd3MsrjLBop3YT/view?usp=sharing
+- best1.onnx is larger than 100MB, therefore, i could not push it to github, please download manually: https://drive.google.com/file/d/1EEvDNMdYr1BnSMOj5ThZC7afjuuo1MIY/view?usp=sharing
 - The video being processed is ```SOHO_1462_CH03``` will also need to be downloaded manually: https://drive.google.com/file/d/11LSPgLVhZftVhe3ft1kRIawGMdTPReiK/view?usp=sharing
 - After finishing, move the ```best.pt``` to folder ```pizza-counting/app/``` and move the video to ```pizza-counting/videos/```
 
