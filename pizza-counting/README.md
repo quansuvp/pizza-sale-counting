@@ -2,12 +2,14 @@
 # Pizza sale counting
 
 This project utilized YOLO11x to detect and count the number of pizzas sold in a period of time.
+Model training process followed tutorial of Ultralytics. 
 
 ## 1. Brief
 
 - About the deployment
     - Sorry for this incovenient set up, i will try to find another way for deployment.
-    - The docker is currently set up for CPU inference only, as i have personal computer with AMD GPU not NVDIA one -> cannot verify whether it run successfully. 
+    - The dockerfile is currently set up for CPU inference only, as i have personal computer with AMD GPU not NVDIA one -> cannot verify whether it run successfully.
+    - To save your time i uploaded the demo on the youtube link: 
 - About the system
     - YOLO11x is good at detecting "pizza" in the frame but the performance is affected by motion blur.
     - During processing the system may miss counting because the pizza was covered by the staff while passing triggering line.
@@ -33,5 +35,7 @@ This project utilized YOLO11x to detect and count the number of pizzas sold in a
 
 - Change the range of video going to be processed by adjusting ```START_FRAME``` and ```END_FRAME``` in the ```main.py``` file.
 - Change the video file name in the command above to match your video filename if needed.
+
+- Output video is a sequence of annotated frame of the input video: where ```out``` is the number of pizzas sold.
 
 ![alt text](images/image.png)
