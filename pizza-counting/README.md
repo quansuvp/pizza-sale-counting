@@ -30,7 +30,7 @@ This project utilized YOLO11x to detect and count the number of pizzas sold in a
 
 - About the deployment
     - Sorry for this incovenient set up, i will try to find another way for deployment.
-      
+    - The docker is currently set up for CPU inference only, as i have personal computer with AMD GPU not NVDIA one -> cannot verify whether it run successfully. 
 - About the system
     - YOLO11x is good at detecting "pizza" in the frame but the performance is affected by motion blur.
     - During processing the system may miss counting because the pizza was covered by the staff while passing triggering line.
